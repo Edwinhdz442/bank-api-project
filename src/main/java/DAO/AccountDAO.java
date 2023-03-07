@@ -1,12 +1,12 @@
 package DAO;
 
 import Model.Account;
-import Util.ConnectionUtil;
+import Util.ConnectionSingleton;
 import java.sql.*;
 
 public class AccountDAO {
     public static Account insertAccount(Account account) {
-        Connection conn = ConnectionUtil.getConnection();
+        Connection conn = ConnectionSingleton.getConnection();
         try{
             String sql = "Insert INTO account (username, password) VALUES (?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -22,7 +22,7 @@ public class AccountDAO {
     }
 
     public static Account userAccount(String username, String password) {
-        Connection conn = ConnectionUtil.getConnection();
+        Connection conn = ConnectionSingleton.getConnection();
         String sql = "SELECT * FROM account WHERE username=? AND password=?;";
         try {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -44,7 +44,7 @@ public class AccountDAO {
     }
 
     public static void deleteAccount(int account_num) {
-        Connection conn = ConnectionUtil.getConnection();
+        Connection conn = ConnectionSingleton.getConnection();
         try{
             String sql = "DELETE FROM message WHERE account_num = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
