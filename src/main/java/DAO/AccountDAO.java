@@ -43,10 +43,33 @@ public class AccountDAO {
         return null;
     }
 
+    public static Account getAccount(int account_num){
+        Connection conn = ConnectionSingleton.getConnection();
+        try{
+            String sql = "SELECT FROM account WHERE account_num = ? ";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, account_num);
+
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Account account = new Account(rs.getInt("account_num"),
+                        rs.getString("username"),
+                        rs.getString("password"));
+                return account;
+            }
+
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
     public static void deleteAccount(int account_num) {
         Connection conn = ConnectionSingleton.getConnection();
         try{
-            String sql = "DELETE FROM message WHERE account_num = ?";
+            String sql = "DELETE FROM account WHERE account_num = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             statement.setInt(1, account_num);
