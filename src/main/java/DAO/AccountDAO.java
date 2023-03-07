@@ -5,7 +5,7 @@ import Util.ConnectionUtil;
 import java.sql.*;
 
 public class AccountDAO {
-    public Account insertAccount(Account account) {
+    public static Account insertAccount(Account account) {
         Connection conn = ConnectionUtil.getConnection();
         try{
             String sql = "Insert INTO account (username, password) VALUES (?, ?)";
@@ -14,13 +14,14 @@ public class AccountDAO {
             statement.setString(1, account.getUsername());
             statement.setString(2, account.getPassword());
 
+            statement.executeUpdate();
         } catch(SQLException e){
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public Account userAccount(String username, String password) {
+    public static Account userAccount(String username, String password) {
         Connection conn = ConnectionUtil.getConnection();
         String sql = "SELECT * FROM account WHERE username=? AND password=?;";
         try {
@@ -42,7 +43,7 @@ public class AccountDAO {
         return null;
     }
 
-    public void deleteAccount(int account_num) {
+    public static void deleteAccount(int account_num) {
         Connection conn = ConnectionUtil.getConnection();
         try{
             String sql = "DELETE FROM message WHERE account_num = ?";
