@@ -14,3 +14,7 @@ Api for our week 1 small project.
 * Open/close account.
 * Transfer between accounts (check balance for illegal withdrawals).
 * Deposit.
+
+# Authors
+* Edwin H
+* Alexander A
